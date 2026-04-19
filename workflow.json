@@ -1,0 +1,136 @@
+{
+  "project_overview": "JobPulse — A job application tracker dashboard built with React 19 and Vite. Users can add, edit, delete, and track job applications across statuses (Applied, Interview, Offer, Rejected). Data is persisted in localStorage with demo data seeding for first-time users.",
+  "tech_stack": ["React 19", "Vite 8", "react-icons (Heroicons v2)", "uuid", "Vanilla CSS", "localStorage"],
+  "architecture": "Single-page React app with component-based architecture. One custom hook (useJobs) handles all state management including CRUD, filtering, sorting, and stats computation. App.jsx serves as the routing hub using activeSection state to switch between dashboard, applications, analytics, and settings views.",
+  "components": {
+    "App": {
+      "purpose": "Root component. Manages modal state, toast state, sidebar toggle, active section routing. Orchestrates all child components. Includes sort controls for Applications view and Settings page with data management.",
+      "inputs": [],
+      "outputs": [],
+      "dependencies": ["useJobs", "Sidebar", "Header", "StatsBar", "JobList", "BottomDash", "AddJobModal", "Toast"]
+    },
+    "Sidebar": {
+      "purpose": "Fixed left navigation panel with MAIN (Dashboard, Applications) and TOOLS (Analytics, Settings) sections. Slides in as drawer on mobile. Uses gear icon for Settings.",
+      "inputs": ["isOpen", "onClose", "activeSection", "onSectionChange"],
+      "outputs": ["section change callbacks"],
+      "dependencies": ["react-icons/hi2"]
+    },
+    "Header": {
+      "purpose": "Top bar with search input, all 4 status filter pills, export button, and add job button. Shows hamburger menu on mobile.",
+      "inputs": ["onAddClick", "searchQuery", "setSearchQuery", "statusFilter", "setStatusFilter", "onExportClick", "onToggleSidebar"],
+      "outputs": ["search/filter/action callbacks"],
+      "dependencies": ["react-icons/hi2", "useJobs STATUSES"]
+    },
+    "StatsBar": {
+      "purpose": "Displays 4 stat cards with left-border accents showing Total Applied, Interviews, Offers, and Rejected counts with trend indicators.",
+      "inputs": ["stats"],
+      "outputs": [],
+      "dependencies": ["react-icons/hi2"]
+    },
+    "JobList": {
+      "purpose": "Renders a responsive grid of JobCards plus an 'Add new application' placeholder card. Shows EmptyState if no jobs.",
+      "inputs": ["jobs", "onDelete", "onStatusChange", "onEdit", "onAddClick", "title"],
+      "outputs": ["action callbacks to App"],
+      "dependencies": ["JobCard", "EmptyState", "react-icons/hi2"]
+    },
+    "JobCard": {
+      "purpose": "Individual job application card with company avatar, status badge with click-outside-dismissible dropdown, role, date, location. Two-click delete confirmation with auto-timeout. Actions visible on hover (desktop) or always (mobile).",
+      "inputs": ["job", "index", "onDelete", "onStatusChange", "onEdit"],
+      "outputs": ["CRUD callbacks"],
+      "dependencies": ["react-icons/hi2", "useJobs STATUSES"]
+    },
+    "BottomDash": {
+      "purpose": "Two-column analytics section: 7-day bar chart of applications and status breakdown progress bars.",
+      "inputs": ["stats"],
+      "outputs": [],
+      "dependencies": []
+    },
+    "AddJobModal": {
+      "purpose": "Modal form for adding or editing a job application. Fields: company, role, status, date, location, follow-up date, notes. Validates required fields with shake animation. Scroll-lock when open.",
+      "inputs": ["isOpen", "onClose", "onSave", "editingJob"],
+      "outputs": ["onSave callback with form data"],
+      "dependencies": ["react-icons/hi2", "useJobs STATUSES"]
+    },
+    "EmptyState": {
+      "purpose": "Displayed when no jobs exist. Shows icon with CTA button to add first job.",
+      "inputs": ["onAddClick"],
+      "outputs": [],
+      "dependencies": ["react-icons/hi2"]
+    },
+    "Toast": {
+      "purpose": "Auto-dismissing success notification at bottom of screen. Shows for 3 seconds.",
+      "inputs": ["message", "isVisible", "onClose"],
+      "outputs": [],
+      "dependencies": ["react-icons/hi2"]
+    },
+    "FilterBar": {
+      "purpose": "Full search/filter/sort bar — available but not currently used in the main app flow.",
+      "inputs": ["searchQuery", "setSearchQuery", "statusFilter", "setStatusFilter", "sortBy", "setSortBy", "jobCount"],
+      "outputs": [],
+      "dependencies": ["react-icons/hi2", "useJobs STATUSES"]
+    },
+    "JobPipeline": {
+      "purpose": "Kanban-style board grouping jobs by status columns — available but not currently used.",
+      "inputs": ["jobs", "onDelete", "onStatusChange", "onEdit"],
+      "outputs": [],
+      "dependencies": ["JobCard", "useJobs STATUSES"]
+    },
+    "JobTable": {
+      "purpose": "Table view of jobs with inline status badges and action buttons. Fixed and functional.",
+      "inputs": ["jobs", "onDelete", "onEdit"],
+      "outputs": [],
+      "dependencies": ["react-icons/hi2"]
+    }
+  },
+  "state_management": "Single custom hook (useJobs) manages all application state: jobs array, search query, status filter, sort order. Uses useState with localStorage persistence via useEffect. Derived stats computed via useMemo. All mutations wrapped in useCallback for stability.",
+  "data_flow": "useJobs hook → App.jsx (destructures all state + handlers) → Props passed down to child components. Sort controls now properly wired in Applications view. Modal and toast states managed independently in App.jsx via useState.",
+  "features": {
+    "implemented": [
+      "Add job application with form validation",
+      "Edit existing job application",
+      "Delete job application with two-click confirmation",
+      "Change job status via card dropdown (click-outside dismiss)",
+      "Search by company, role, location",
+      "Filter by all 4 statuses (Applied, Interview, Offer, Rejected)",
+      "Sort by date (newest/oldest) or company name (A-Z)",
+      "Dashboard view with stats, recent 5 jobs, charts",
+      "Applications view with all jobs and sort controls",
+      "Analytics view with stats and charts",
+      "Settings page with export/clear data and about info",
+      "Export data to JSON file",
+      "Clear all data with confirmation",
+      "Demo data seeding for first-time users",
+      "Toast notifications",
+      "Responsive sidebar drawer",
+      "7-day bar chart",
+      "Status breakdown progress bars",
+      "Empty state with CTA",
+      "Full mobile/tablet/desktop responsiveness"
+    ],
+    "available_unused": [
+      "FilterBar component (search/filter/sort bar)",
+      "JobPipeline component (Kanban board view)",
+      "JobTable component (table view)"
+    ]
+  },
+  "ui_system": {
+    "theme": "Clean, minimal dark theme with softer backgrounds (#121318 base). DM Sans / DM Mono fonts. Status colors: blue (Applied), amber (Interview), green (Offer), red (Rejected). Solid accent blue (#5b82fa). No gradients, no glows, no flashy effects.",
+    "design_principles": [
+      "Clean borders over shadows",
+      "Solid colors over gradients",
+      "Subtle transitions over animations",
+      "Left-border accents on stat cards",
+      "Text-overflow ellipsis for long content",
+      "Consistent spacing via CSS custom properties"
+    ]
+  },
+  "responsiveness": {
+    "current_state": "Fully responsive across mobile (480px), tablet (768px), and desktop (1024px+).",
+    "breakpoints": {
+      "480px": "Card grid 2-column, smaller filter pills, compact stat cards",
+      "600px": "Modal form rows stack to single column",
+      "768px": "Card grid 1-column, header stacks, bottom dash stacks, job actions always visible",
+      "1024px": "Sidebar becomes drawer, margin-left removed from content, overlay shown"
+    }
+  }
+}

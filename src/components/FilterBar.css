@@ -1,0 +1,211 @@
+.filter-bar {
+  padding: 0 var(--space-xl);
+  margin-top: var(--space-lg);
+  animation: fadeInUp var(--transition-slow) ease both;
+  animation-delay: 200ms;
+}
+
+.filter-bar__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+/* ── Search ── */
+.filter-bar__search {
+  position: relative;
+  flex: 1;
+  min-width: 220px;
+  max-width: 380px;
+}
+
+.filter-bar__search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.05rem;
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.filter-bar__search-input {
+  width: 100%;
+  padding: 10px 38px 10px 40px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.filter-bar__search-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.filter-bar__search-input:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.filter-bar__clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: var(--bg-elevated);
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  line-height: 1;
+  transition: all var(--transition-fast);
+}
+
+.filter-bar__clear:hover {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+/* ── Filter Pills ── */
+.filter-bar__pills {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.filter-bar__pills-icon {
+  color: var(--text-tertiary);
+  font-size: 1rem;
+  margin-right: 2px;
+}
+
+.filter-pill {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-default);
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.filter-pill:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.filter-pill--active {
+  background: var(--bg-elevated);
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.filter-pill--applied.filter-pill--active {
+  background: var(--status-applied-bg);
+  border-color: var(--status-applied);
+  color: var(--status-applied);
+}
+
+.filter-pill--interview.filter-pill--active {
+  background: var(--status-interview-bg);
+  border-color: var(--status-interview);
+  color: var(--status-interview);
+}
+
+.filter-pill--offer.filter-pill--active {
+  background: var(--status-offer-bg);
+  border-color: var(--status-offer);
+  color: var(--status-offer);
+}
+
+.filter-pill--rejected.filter-pill--active {
+  background: var(--status-rejected-bg);
+  border-color: var(--status-rejected);
+  color: var(--status-rejected);
+}
+
+/* ── Meta (sort + count) ── */
+.filter-bar__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-left: auto;
+}
+
+.filter-bar__sort {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-tertiary);
+  font-size: 0.9rem;
+}
+
+.filter-bar__sort-select {
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  padding: 6px 10px;
+  cursor: pointer;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.filter-bar__sort-select:focus {
+  border-color: var(--border-focus);
+}
+
+.filter-bar__count {
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .filter-bar {
+    padding: 0 var(--space-md);
+  }
+
+  .filter-bar__inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-bar__search {
+    max-width: none;
+  }
+
+  .filter-bar__pills {
+    overflow-x: auto;
+    padding-bottom: 2px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .filter-bar__pills::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-bar__meta {
+    margin-left: 0;
+    justify-content: space-between;
+  }
+}

@@ -1,0 +1,78 @@
+.job-table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
+}
+
+.job-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.88rem;
+}
+
+.job-table th {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-default);
+  color: var(--text-tertiary);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+}
+
+.job-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  vertical-align: middle;
+}
+
+.job-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.job-table tr:last-child td {
+  border-bottom: none;
+}
+
+.font-medium { font-weight: 500; }
+.text-white { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-tertiary { color: var(--text-tertiary); }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+.py-6 { padding-top: 24px; padding-bottom: 24px; }
+
+.table-status-badge {
+  padding: 3px 9px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.table-status-badge.status--applied { color: var(--status-applied); background: var(--status-applied-bg); }
+.table-status-badge.status--interview { color: var(--status-interview); background: var(--status-interview-bg); }
+.table-status-badge.status--offer { color: var(--status-offer); background: var(--status-offer-bg); }
+.table-status-badge.status--rejected { color: var(--status-rejected); background: var(--status-rejected-bg); }
+
+.table-action-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-tertiary);
+  font-size: 1rem;
+  padding: 5px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border-radius: 4px;
+}
+
+.table-action-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.hover-danger:hover {
+  color: var(--danger);
+  background: var(--danger-bg);
+}
